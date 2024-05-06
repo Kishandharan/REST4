@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 
@@ -14,10 +16,10 @@ public class RailwayController {
 	RailwayRepo rr;
 	
 	@PostMapping("/stations/loadFile/{fname}")
-	public String load(@PathVariable String fname)throws Exception {
+	public String render_Database(@PathVariable String fname)throws Exception {
 		File f1 = new File(fname);
 		Scanner sc1 = new Scanner(f1);
-		while(sc1.hasNextLine()) {
+		for(int i = 0; i<1000; i++) {
 			String[] arr1 = sc1.nextLine().split(",");
 			String name = arr1[0];
 			String code = arr1[1];
@@ -27,5 +29,15 @@ public class RailwayController {
 		
 		sc1.close();
 		return "Success";
+	}
+		
+	@GetMapping("/stations/renderTabl")
+	public List<RailwayEntity> renderTabl(){
+		return rr.findAll();
+	}
+	
+	@GetMapping("/stations/findbycode/{code}")
+	public RailwayEntity findByCode(@PathVariable String code) {
+		return rr.findByStationCode(code);
 	}
 }
