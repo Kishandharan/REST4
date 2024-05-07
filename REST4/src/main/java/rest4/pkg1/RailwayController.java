@@ -40,4 +40,9 @@ public class RailwayController {
 	public RailwayEntity findByCode(@PathVariable String code) {
 		return rr.findByStationCode(code);
 	}
+	
+	@GetMapping("/stations/findbyalpha/{alpha}")
+	public List<RailwayEntity> findbyalpha(@PathVariable char alpha){
+		return rr.findByAlpha(alpha);		
+	}
 }
